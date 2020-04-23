@@ -81,7 +81,7 @@ export default {
         alert('Vous n\'êtes pas super utilisateur');
         return;
       }
-
+//feature super cool
       RestClient.delete(`user/${user.public_id}`)
         .then(res => {
           this.users = this.users.filter((u) => u.public_id !== user.public_id);
