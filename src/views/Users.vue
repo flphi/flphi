@@ -5,9 +5,9 @@
     <div class="container">
       <div class="col-md-12">
         <router-link to="register" tag="a" class="btn btn-primary" v-if="currentUser.super_user">Add user</router-link>
-        <router-link to="changemail" tag="a" class="btn btn-primary" v-else>Change email</router-link>
-        <router-link id="sendemail" to="sendmail" tag="a" class="btn btn-primary" v-if="currentUser.super_user">Send email</router-link>
-        <router-link id="changepw" to="changepw" tag="a" class="btn btn-primary" v-else>Change password</router-link>
+        <router-link id="sendemail" to="sendmail" tag="a" class="btn btn-primary" v-if="currentUser.super_user">
+          Send email</router-link>
+        <router-link id="changepw" to="changepw" tag="a" class="btn btn-primary">Change password</router-link>
       </div>
       <!-- SUPER USER -->
       <table class="table">
@@ -19,7 +19,16 @@
         </tbody>
         <tbody>
           <tr v-for="user in users" v-bind:key="user.public_id">
-            <td>{{ user.email }}</td>
+            <td>
+              <div v-if="!isEditingEmail(user)">
+                {{ user.email }} 
+                <a class="btn btn-primary btn-small" v-on:click="onEditEmailClick(user)">Change email</a>
+              </div>
+              <div v-else>
+                <input v-on:change="onNewEmailChange($event, user)" placeholder="New email" :value="editingUsersEmail[user.public_id]" />
+                <a class="btn btn-primary btn-small" v-on:click="updateUserEmail(user)">Update</a>
+              </div>
+            </td>
             <td>{{ user.name }}</td>
             <td v-if="currentUser.super_user">
               <select @change="onSuperUserChange($event, user)">
@@ -48,7 +57,9 @@ export default {
   data: function() {
     return {
       users: [],
+      newEmail: '',
       currentUser: null,
+      editingUsersEmail: {}
     };
   },
   created() {
@@ -76,6 +87,13 @@ export default {
         })
         .catch(err => console.log(err));
     },
+    onNewEmailChange: function($event, user) {
+      this.editingUsersEmail[user.public_id] = $event.target.value;
+    },
+    onEditEmailClick: function(user){
+      this.editingUsersEmail[user.public_id] = user.email;
+      this.$forceUpdate();
+    },
     delUser: function(event, user){
       if (!UserAuthentification.isCurrentUserSuperUser()) {
         alert('Vous n\'êtes pas super utilisateur');
@@ -87,8 +105,19 @@ export default {
           this.users = this.users.filter((u) => u.public_id !== user.public_id);
         })
         .catch(err => console.log(err));
+    },
+    isEditingEmail: function(user) {
+      return Object.keys(this.editingUsersEmail).some((public_id) => public_id === user.public_id);
+    },
+    updateUserEmail: function(user) {
+      RestClient.put(`/user/email/${user.public_id}`, { new_email: this.editingUsersEmail[user.public_id] })
+        .then((response) => {
+          user.email = this.editingUsersEmail[user.public_id];
+          delete this.editingUsersEmail[user.public_id];
+          this.$forceUpdate();
+        }).catch((error) => console.error(error));
     }
-  }
+  },
 };
 </script>
 
