@@ -22,7 +22,6 @@
             <div class="form-group">
               <label for="content">Content</label>
               <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" v-model="content"></textarea>
-              <!--<input type="text" class="form-control" v-model="content"/>-->
             </div>
           </div>
 

@@ -30,6 +30,11 @@ Vue.use(VueRouter)
     name: 'Sendmail',
     component: () => import(/* webpackChunkName: "about" */ '../views/Sendmail.vue')
   },
+  {
+    path: '/changepw',
+    name: 'Changepw',
+    component: () => import(/* webpackChunkName: "about" */ '../views/Changepw.vue')
+  }
 ]
 
 const router = new VueRouter({
