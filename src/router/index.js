@@ -34,6 +34,11 @@ Vue.use(VueRouter)
     path: '/changepw',
     name: 'Changepw',
     component: () => import(/* webpackChunkName: "about" */ '../views/Changepw.vue')
+  },
+  {
+    path: '/sendevent',
+    name: 'Sendevent',
+    component: () => import(/* webpackChunkName: "about" */ '../components/Sendevent.vue')
   }
 ]
 

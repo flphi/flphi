@@ -56,6 +56,7 @@ export default {
       RestClient.put(`/user/pw/${this.currentUser.public_id}`, { new_pw : this.new_pw})
         .then((response) => {
           this.serverError = false;
+          alert('Password changed.')
           this.$router.push({ path: '/users' });
         }).catch((error) => {
           this.serverError = true;

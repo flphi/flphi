@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <router-link to="sendevent" tag="a" class="btn btn-primary">Send event</router-link>
     <Header />
     <Indicateurs />
   </div>
@@ -8,7 +9,7 @@
 <script>
 import Indicateurs from '../components/Indicateurs.vue';
 import Header from '../components/layout/Header.vue';
-import axios from 'axios';
+//import axios from 'axios';
 
 export default {
   name: 'Home',

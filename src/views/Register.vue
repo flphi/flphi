@@ -74,6 +74,7 @@ export default {
       RestClient.post('user', { email: this.email, username: this.username, password: this.password})
         .then((response) => {
           this.serverError = false;
+          alert("New user created!")
           this.$router.push({ path: '/users' });
         }).catch((error) => {
           this.serverError = true;

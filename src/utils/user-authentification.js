@@ -12,7 +12,7 @@ class UserAuthentication {
         .then((response) => {
           const token = response.data.token;
           RestClient.setHeader('x-access-token', token);
-          console.info('TOKEN RECU DU SERVEUR=' + token);
+          //console.info('TOKEN RECU DU SERVEUR=' + token);
  
           // Obtient le user authentifié grâce au token
           RestClient.get('current_user').then((response) => {

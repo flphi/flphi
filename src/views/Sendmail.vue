@@ -66,6 +66,7 @@ export default {
       RestClient.post('/send/mail', { title: this.title, content: this.content})
         .then((response) => {
           this.serverError = false;
+          alert('Emails have been sent.')
           this.$router.push({ path: '/users' });
         }).catch((error) => {
           this.serverError = true;
