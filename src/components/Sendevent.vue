@@ -28,7 +28,7 @@
           <div class="col-md-12">
             <div class="form-group">
               <label for="courriel">Courriel</label>
-              <input type="text" class="form-control" v-model="courriel" required/>
+              <input type="email" class="form-control" v-model="courriel" required/>
             </div>
           </div>
 
@@ -91,18 +91,10 @@ export default {
   methods: {
     onSendClick: function(event) {
       if (!this.prenom.length || !this.nom.length || !this.courriel.length || !this.content.length
-      || !this.positionLat.match(/^[+-]?[\d]+(\.[\d]+)$/) || !this.positionLat.match(/^[+-]?[\d]+(\.[\d]+)$/)
-      || this.positionLat < -90 || this.positionLat > 90 || this.positionLon < -90 || this.positionLon > 90
-      || this.courriel.match(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)) {
+      || !this.positionLat.match(/^[+-]?[\d]+(\.[\d]+)$/) || !this.positionLon.match(/^[+-]?[\d]+(\.[\d]+)$/)
+      || this.positionLat < -90 || this.positionLat > 90 || this.positionLon < -90 || this.positionLon > 90) {
             this.invalid = true;
-            console.log("invalid!");
-            console.log(this.prenom);
-            console.log(this.nom);
-            console.log(this.courriel);
-            console.log(this.content);
-            console.log(this.positionLat);
-            console.log(this.positionLon);
-            console.log(this.prenom);
+            //console.log("invalid!");
             return;
       } else {
         this.invalid = false
