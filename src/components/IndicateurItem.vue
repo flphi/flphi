@@ -2,10 +2,7 @@
   <div class="indicateur-item" :style="'background-color:' + backgroundColor">
     <h3>{{ indicateur.nom }}</h3>
     <ul>
-      <li>valeur: {{indicateur.valeur}}</li>
-      <!--<li>event: {{indicateur.evenement_meteo}}</li>
-      <li>id indicateur: {{indicateur.id_indicateur}}</li>
-      <li>Repertoire: {{indicateur.repertoire_script}}</li>-->
+      <li>{{indicateur.valeur}} {{indicateur.units}}</li>
     </ul>
   </div>
 </template>

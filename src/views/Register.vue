@@ -14,7 +14,7 @@
           <div class="col-md-12">
             <div class="form-group">
               <label for="email">Email</label>
-              <input type="email" class="form-control" v-model="email"/>
+              <input type="email" ref="emailRef" class="form-control" v-model="email"/>
             </div>
           </div>
 
@@ -65,7 +65,7 @@ export default {
   },
   methods: {
     onRegisterClick: function(event) {
-      if (!this.email.length || !this.username.length || !this.password.length) {
+      if (!this.email.length || !this.username.length || !this.password.length || !this.$refs.emailRef.checkValidity()) {
         this.invalid = true;
         return;
       } else {

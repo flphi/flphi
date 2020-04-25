@@ -28,7 +28,7 @@
           <div class="col-md-12">
             <div class="form-group">
               <label for="courriel">Courriel</label>
-              <input type="email" class="form-control" v-model="courriel" required/>
+              <input type="email" ref="emailRef" class="form-control" v-model="courriel" required/>
             </div>
           </div>
 
@@ -91,10 +91,10 @@ export default {
   methods: {
     onSendClick: function(event) {
       if (!this.prenom.length || !this.nom.length || !this.courriel.length || !this.content.length
-      || !this.positionLat.match(/^[+-]?[\d]+(\.[\d]+)$/) || !this.positionLon.match(/^[+-]?[\d]+(\.[\d]+)$/)
-      || this.positionLat < -90 || this.positionLat > 90 || this.positionLon < -90 || this.positionLon > 90) {
+      || !/^[+-]?[\d]+(\.[\d]+){0,1}$/.test(this.positionLat) || !/^[+-]?[\d]+(\.[\d]+){0,1}$/.test(this.positionLon)
+      || this.positionLat < -90 || this.positionLat > 90 || this.positionLon < -90 || this.positionLon > 90 || 
+      !this.$refs.emailRef.checkValidity()) {
             this.invalid = true;
-            //console.log("invalid!");
             return;
       } else {
         this.invalid = false
