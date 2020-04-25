@@ -12,9 +12,9 @@ class RestClient {
         this.delete = this.axios.delete;
     }
 
-    /*setHeader = (key, value) => {
+    setHeader = (key, value) => {
         this.axios.defaults.headers.common[key] = value;
-    }*/
+    }
 }
 
 export default new RestClient();

@@ -1,10 +1,8 @@
 <template>
   <div>
-    <div class="indicateurs">
-      <IndicateurItem
-        v-bind:key="indicateur.id_indicateur"
-        v-for="indicateur in indicateurs"
-        v-bind:indicateur="indicateur" />
+    <div class="meteo">
+      <div>Ensoleillé</div>
+      <div>Température: {{ meteo.temperature }} °C</div>
     </div>
   </div>
 </template>
@@ -14,7 +12,7 @@ import IndicateurItem from "./IndicateurItem.vue";
 import RestClient from "../utils/rest-client";
 
 export default {
-  name: "Indicateurs",
+  name: "MeteoActuelle",
   components: {
     IndicateurItem
   },
@@ -23,7 +21,7 @@ export default {
   ],
   data: function() {
     return {
-      indicateurs: []
+      meteo: { temperature: 20 }
     };
   },
   created() {
@@ -32,11 +30,10 @@ export default {
   watch: {
     immediate: true,
     village: function(newVillage, oldVillage) {
-      console.info('called');
       if (newVillage != null) {
-        RestClient.get(`/indicateurs/${newVillage.id_village}`).then((response) => this.indicateurs = response.data['Indicateurs']);
+        RestClient.get(`/meteo/${newVillage.id_village}`).then((response) => this.meteo = response.data['Meteo']);
       } else {
-        this.indicateurs= null;
+        this.meteo = {};
       }
     }
   }
@@ -44,12 +41,9 @@ export default {
 </script>
 
 <style scoped>
-.indicateurs {
+.Meteo {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-}
-.indicateurs > div {
-  margin: 10px;
 }
 </style>

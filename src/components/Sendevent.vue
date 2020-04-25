@@ -14,21 +14,21 @@
           <div class="col-md-12">
             <div class="form-group">
               <label for="prenom">Prenom</label>
-              <input type="text" class="form-control" v-model="prenom"/>
+              <input type="text" class="form-control" v-model="prenom" required/>
             </div>
           </div>
 
           <div class="col-md-12">
             <div class="form-group">
               <label for="nom">Nom</label>
-              <input type="text" class="form-control" v-model="nom"/>
+              <input type="text" class="form-control" v-model="nom" required/>
             </div>
           </div>
 
           <div class="col-md-12">
             <div class="form-group">
               <label for="courriel">Courriel</label>
-              <input type="text" class="form-control" v-model="courriel"/>
+              <input type="text" class="form-control" v-model="courriel" required/>
             </div>
           </div>
 
@@ -42,21 +42,23 @@
           <div class="col-md-12">
             <div class="form-group">
               <label for="positionLon">Longitude (WGS84)</label>
-              <input type="text" class="form-control" v-model="positionLon"/>
+              <input type="numeric" class="form-control" v-model="positionLon" required/>
             </div>
           </div>
+          <!-- pattern="[-+]?[0-9]*\.?[0-9]*" -->
+          <!-- type="numeric" id="Lat" step="0.1" class="form-control" v-model="positionLat" required/> -->
 
           <div class="col-md-12">
             <div class="form-group">
               <label for="positionLat">Latitude (WGS84)</label>
-              <input type="text" class="form-control" v-model="positionLat"/>
+              <input type="numeric" step="0.1" class="form-control" v-model="positionLat" required/>
             </div>
           </div>
 
           <div class="col-md-12">
             <div class="form-group">
               <label for="image">Image</label><br/>
-              <input type="file" @change="onFileSelected" />
+              <input type="file" @change="onFileSelected" required/>
             </div>
           </div>
 
@@ -90,14 +92,16 @@ export default {
   },
   methods: {
     onSendClick: function(event) {
-      if (!this.prenom.length || !this.nom.length || !this.courriel.length || !this.content.length) {
-        this.invalid = true;
-        return;
+      if (!this.prenom.length || !this.nom.length || !this.courriel.length || !this.content.length
+      || !this.positionLat.match(/^[+-][\d]+(\.[\d]+)$/) || !this.positionLat.match(/^[+-][\d]+(\.[\d]+)$/)
+      || this.positionLat < -90 || this.positionLat > 90 || this.positionLon < -90 || this.positionLon > 90) {
+            this.invalid = true;
+            console.log("invalid!");
+            return;
       } else {
         this.invalid = false
       }
-      /*const fd = new FormData();
-      fd.append('image', this.selectedFile.toDataURL(), this.selectedFile.name);*/
+      
       RestClient.post('/send/event', { prenom: this.prenom, nom: this.nom, courriel: this.courriel,
         content: this.content, image64: this.image64, positionLon: this.positionLon, positionLat:this.positionLat}, {
         onUploadProgress: uploadEvent =>{

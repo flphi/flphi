@@ -1,5 +1,6 @@
 <template>
-  <div class="indicateur-item">
+  <div class="indicateur-item" :style="'background-color:' + backgroundColor">
+    <h3>{{ indicateur.nom }}</h3>
     <ul>
       <li>Description calcul: {{indicateur.desc_calcul}}</li>
       <li>Description event: {{indicateur.desc_evenement}}</li>
@@ -13,14 +14,32 @@
 <script type="text/javascript">
 export default {
   name: "IndicateurItem",
-  props: ["indicateur"]
+  props: ["indicateur"],
+  computed: {
+    backgroundColor: function() {
+      switch(this.indicateur.probabilite) {
+        case 'faible':
+          return 'green';
+        case 'moyen':
+          return 'yellow';
+        case 'fort':
+          return 'red';
+      }
+      return 'black';
+    }
+  }
 };
 </script>
 
 <style scoped>
+ul {
+  list-style: none;
+}
 .indicateur-item {
   background: #f4f4f4;
   padding: 10px;
-  border-bottom: 1px #ccc dotted;
+  border: 1px solid gray;
+  min-width: 200;
+  min-height: 200px;
 }
 </style>

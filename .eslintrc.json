@@ -1,6 +1,15 @@
 {
     "rules": {
-        "no-unused-vars": "warn"
+        "no-unused-vars": "warn",
+        "indent": ["warn", 2]
     },
-    "extends": ["plugin:vue/base"]
+    "extends": [
+        "plugin:vue/base"
+    ],
+    "parserOptions": {
+        "ecmaVersion": 2018,
+        "ecmaFeatures": {
+            "experimentalObjectRestSpread": true
+        }
+    }
 }

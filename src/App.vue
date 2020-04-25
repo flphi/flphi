@@ -4,7 +4,9 @@
       <router-link to="/">Home</router-link> |
       <router-link to="/login">Log-in</router-link>
     </div>
-    <router-view/>
+    <div class="content">
+      <router-view/>
+    </div>
   </div>
 </template>
 
@@ -19,6 +21,7 @@
 
 #nav {
   padding: 30px;
+  background-color: lightgray;
 }
 
 #nav a {
@@ -28,5 +31,9 @@
 
 #nav a.router-link-exact-active {
   color: #42b983;
+}
+.content {
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 </style>
