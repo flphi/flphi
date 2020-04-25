@@ -45,8 +45,6 @@
               <input type="numeric" class="form-control" v-model="positionLon" required/>
             </div>
           </div>
-          <!-- pattern="[-+]?[0-9]*\.?[0-9]*" -->
-          <!-- type="numeric" id="Lat" step="0.1" class="form-control" v-model="positionLat" required/> -->
 
           <div class="col-md-12">
             <div class="form-group">
@@ -93,10 +91,18 @@ export default {
   methods: {
     onSendClick: function(event) {
       if (!this.prenom.length || !this.nom.length || !this.courriel.length || !this.content.length
-      || !this.positionLat.match(/^[+-][\d]+(\.[\d]+)$/) || !this.positionLat.match(/^[+-][\d]+(\.[\d]+)$/)
-      || this.positionLat < -90 || this.positionLat > 90 || this.positionLon < -90 || this.positionLon > 90) {
+      || !this.positionLat.match(/^[+-]?[\d]+(\.[\d]+)$/) || !this.positionLat.match(/^[+-]?[\d]+(\.[\d]+)$/)
+      || this.positionLat < -90 || this.positionLat > 90 || this.positionLon < -90 || this.positionLon > 90
+      || this.courriel.match(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)) {
             this.invalid = true;
             console.log("invalid!");
+            console.log(this.prenom);
+            console.log(this.nom);
+            console.log(this.courriel);
+            console.log(this.content);
+            console.log(this.positionLat);
+            console.log(this.positionLon);
+            console.log(this.prenom);
             return;
       } else {
         this.invalid = false
