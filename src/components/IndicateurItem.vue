@@ -1,8 +1,8 @@
 <template>
   <div class="indicateur-item" :style="'background-color:' + backgroundColor">
-    <h3>{{ indicateur.nom }}</h3>
+    <h3>{{ indicateur.probabilite }}</h3>
     <ul>
-      <li>{{indicateur.valeur}} {{indicateur.units}}</li>
+      <li>{{indicateur.nom}}</li>
     </ul>
   </div>
 </template>
